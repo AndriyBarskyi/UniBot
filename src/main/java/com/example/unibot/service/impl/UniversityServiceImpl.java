@@ -28,7 +28,7 @@ public class UniversityServiceImpl implements UniversityService {
             new LinkedList<>(lectorRepository.searchLectorsName(template));
         searchResults.addAll(
             departmentRepository.searchDepartmentsName(template));
-        return searchResults.isEmpty() ? searchResults :
+        return !searchResults.isEmpty() ? searchResults :
             List.of("Nothing has been found by template: " + template);
     }
 }

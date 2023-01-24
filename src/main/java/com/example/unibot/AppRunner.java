@@ -45,32 +45,36 @@ public class AppRunner implements CommandLineRunner {
         String data;
         System.out.println(HELP);
         while (!(data = reader.readLine()).equalsIgnoreCase("q")) {
-            String firstPart = data.lastIndexOf(" ") > 1 ?
-                data.substring(0, data.lastIndexOf(" ")) : "";
-            String lastWord = data.lastIndexOf(" ") > 1 ?
-                data.substring(data.lastIndexOf(" ") + 1) : "";
-
             if (data.startsWith("Show ") && data.endsWith(" statistics")) {
                 System.out.println(departmentService.getDepartmentStatistics(
                     data.substring(data.indexOf(" "), data.lastIndexOf(" "))
                         .trim()));
-            } else if (firstPart.equalsIgnoreCase(SHOW_HEAD_OF_DEP)) {
-                System.out.println("Head of " + lastWord + " is "
-                    + departmentService.getHeadOfDepartment(
-                    lastWord));
-            } else if (firstPart.equalsIgnoreCase(SHOW_AVERAGE_SALARY)) {
-                System.out.println("The average salary of " + lastWord + " is "
-                    + departmentService.getAvgSalary(lastWord));
-            } else if (firstPart.equalsIgnoreCase(SHOW_EMPLOYEE_COUNT)) {
+            } else if (data.startsWith(SHOW_HEAD_OF_DEP)) {
                 System.out.println(
-                    departmentService.getEmployeesCount(lastWord));
-            } else if (firstPart.equalsIgnoreCase(GLOBAL_SEARCH_BY)) {
-                System.out.println(universityService.globalSearchBy(lastWord));
+                    "Head of " + getEnding(data, SHOW_HEAD_OF_DEP) + " is "
+                        + departmentService.getHeadOfDepartment(
+                        getEnding(data, SHOW_HEAD_OF_DEP)));
+            } else if (data.startsWith(SHOW_AVERAGE_SALARY)) {
+                System.out.println("The average salary of " + getEnding(data,
+                    SHOW_AVERAGE_SALARY) + " is "
+                    + departmentService.getAvgSalary(
+                    getEnding(data, SHOW_AVERAGE_SALARY)));
+            } else if (data.startsWith(SHOW_EMPLOYEE_COUNT)) {
+                System.out.println(
+                    departmentService.getEmployeesCount(
+                        getEnding(data, SHOW_EMPLOYEE_COUNT)));
+            } else if (data.startsWith(GLOBAL_SEARCH_BY)) {
+                System.out.println(universityService.globalSearchBy(
+                    getEnding(data, GLOBAL_SEARCH_BY)));
             } else if (data.equalsIgnoreCase("help")) {
                 System.out.println(HELP);
             } else {
                 System.out.println(DEFAULT_MESSAGE);
             }
         }
+    }
+
+    private String getEnding(String input, String beginning) {
+        return input.replace(beginning, "").trim();
     }
 }

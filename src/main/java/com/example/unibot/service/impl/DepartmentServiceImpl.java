@@ -14,7 +14,7 @@ import com.example.unibot.service.DepartmentService;
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
     public static final String DEPARTMENT_NOT_FOUND =
-        "Such department not found! Please, try again!";
+        "not found! Please, try again!";
     private final DepartmentRepository departmentRepository;
 
     @Autowired
