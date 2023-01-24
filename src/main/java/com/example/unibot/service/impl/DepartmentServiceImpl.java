@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.unibot.entity.Department;
 import com.example.unibot.repository.DepartmentRepository;
-import com.example.unibot.repository.LectorRepository;
 import com.example.unibot.service.DepartmentService;
 
 @Service
@@ -19,8 +18,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentRepository departmentRepository;
 
     @Autowired
-    public DepartmentServiceImpl(DepartmentRepository departmentRepository,
-        LectorRepository lectorRepository) {
+    public DepartmentServiceImpl(DepartmentRepository departmentRepository) {
         this.departmentRepository = departmentRepository;
     }
 
